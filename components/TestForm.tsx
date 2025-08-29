@@ -5,8 +5,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { words } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
-import { downloadCertificate, ExportFormat } from "@/utils/generateCertificate";
-import FormatSelectionModal from "./FormatSelectionModal";
 
 interface Question {
     id: number;
@@ -118,7 +116,6 @@ export default function TestForm() {
     const [selectedWord, setSelectedWord] = useState<string>("");
     const [isAnimating, setIsAnimating] = useState(false);
     const [isInitialized, setIsInitialized] = useState(false);
-    const [showFormatModal, setShowFormatModal] = useState(false);
 
     const containerRef = useRef<HTMLDivElement>(null);
     const titleRef = useRef<HTMLHeadingElement>(null);
@@ -162,10 +159,6 @@ export default function TestForm() {
 
         setIsInitialized(true);
     }, []);
-
-    const handleFormatSelect = async (format: ExportFormat) => {
-        await downloadCertificate(selectedWord, format);
-    };
 
     const handleAnswerSelect = (answer: string) => {
         setAnswers((prev) => ({
@@ -318,11 +311,8 @@ export default function TestForm() {
                     className="flex flex-col gap-[2vw] pt-[5vw]"
                     style={{ opacity: isAnimating ? 0 : undefined }}
                 >
-                    <button
-                        onClick={() => setShowFormatModal(true)}
-                        className="rounded-full py-[0.5vw] px-[2vw] transition-colors cursor-pointer border border-white hover:bg-[#0c0c0c] bg-white text-[#0c0c0c] hover:text-white"
-                    >
-                        Scarica l&apos;attestato
+                    <button className="rounded-full py-[0.5vw] px-[2vw] transition-colors cursor-pointer border border-white hover:bg-[#0c0c0c] bg-white text-[#0c0c0c] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed">
+                        Visualizza attestato
                     </button>
                     <Link
                         className="text-white hover:underline"
@@ -331,13 +321,6 @@ export default function TestForm() {
                         Richiedilo in forma fisica
                     </Link>
                 </div>
-
-                <FormatSelectionModal
-                    isOpen={showFormatModal}
-                    onClose={() => setShowFormatModal(false)}
-                    onSelectFormat={handleFormatSelect}
-                    word={selectedWord}
-                />
             </div>
         );
     }
