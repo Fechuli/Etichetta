@@ -467,6 +467,46 @@ export default function TestForm() {
         });
     };
 
+    const handleDownloadWallpaper = async () => {
+        const scale = 3;
+        const width = 1080 * scale;
+        const height = 1920 * scale;
+
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = "high";
+
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, width, height);
+
+        const font = new FontFace("Inter", "url(/fonts/Inter-SemiBold.ttf)");
+        await font.load();
+        document.fonts.add(font);
+
+        const word = selectedWord.toLowerCase();
+        ctx.fillStyle = "#0c0c0c";
+        ctx.font = `600 ${220 * scale}px Inter`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        ctx.save();
+        ctx.translate(width / 2, height / 2);
+        ctx.rotate(-Math.PI / 2);
+        ctx.fillText(word, 0, 0);
+        ctx.restore();
+
+        const link = document.createElement("a");
+        link.download = `wallpaper-${selectedWord.toLowerCase()}.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+    };
+
     if (isCompleted) {
         return (
             <>
@@ -586,8 +626,14 @@ export default function TestForm() {
                         >
                             Scarica attestato
                         </button>
+                        <button
+                            onClick={handleDownloadWallpaper}
+                            className="rounded-full py-[0.5vw] px-[2vw] transition-colors cursor-pointer border border-white hover:bg-[#0c0c0c] bg-transparent text-white hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            Scarica wallpaper
+                        </button>
                         <Link
-                            className="text-white hover:underline text-center"
+                            className="text-white hover:underline text-center cursor-pointer"
                             href="/contatti"
                         >
                             Richiedilo in forma fisica
