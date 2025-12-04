@@ -191,7 +191,7 @@ export default function LastSection() {
                 >
                     *Questo manifesto continuerà ad esistere <br />
                     ma le parole non verranno più stampate a <br />
-                    partire dal 20/09/25
+                    partire dal 20/1/26
                 </p>
             </div>
         </div>

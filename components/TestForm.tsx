@@ -498,7 +498,25 @@ export default function TestForm() {
         ctx.save();
         ctx.translate(width / 2, height / 2);
         ctx.rotate(-Math.PI / 2);
-        ctx.fillText(word, 0, 0);
+
+        const letterSpacing = -15 * scale;
+        const letters = word.split("");
+        let totalWidth = 0;
+        const letterWidths: number[] = [];
+
+        letters.forEach((letter) => {
+            const w = ctx.measureText(letter).width;
+            letterWidths.push(w);
+            totalWidth += w;
+        });
+        totalWidth += letterSpacing * (letters.length - 1);
+
+        let x = -totalWidth / 2;
+        letters.forEach((letter, i) => {
+            ctx.fillText(letter, x + letterWidths[i] / 2, 0);
+            x += letterWidths[i] + letterSpacing;
+        });
+
         ctx.restore();
 
         const link = document.createElement("a");
@@ -660,21 +678,22 @@ export default function TestForm() {
                 </span>
             </div>
 
-            <div className="mb-8 text-center lg:max-w-[40vw]">
+            <div className="mb-8 text-center lg:max-w-[40vw] min-h-[20vw] lg:min-h-[8vw] flex items-center justify-center">
                 <h2 className="text-[6vw] lg:text-[2.5vw] -tracking-[0.5vw] lg:-tracking-[0.1vw] font-semibold text-[#0c0c0c] leading-tight mb-6">
                     {currentQuestion.question}
                 </h2>
             </div>
 
-            <div className="w-full flex flex-col items-center space-y-4 mb-8">
+            <div className="w-full flex flex-col items-center space-y-4 mb-8 min-h-[60vw] lg:min-h-[12vw]">
                 {currentQuestion.answers.map((answer, index) => (
                     <button
                         key={index}
                         onClick={() => handleAnswerSelect(answer)}
                         className={`
-        w-full sm:w-auto 
-        px-4 py-4 sm:py-[0.5vw] 
-        rounded-full border transition-all duration-200 cursor-pointer 
+        w-full sm:w-auto
+        px-4 py-3 sm:py-[0.5vw]
+        rounded-2xl lg:rounded-full border transition-all duration-200 cursor-pointer
+        lg:min-h-[3vw] flex items-center justify-center
         ${
             answers[currentQuestion.id] === answer
                 ? "border-[#0c0c0c] bg-[#0c0c0c] text-white"
@@ -702,7 +721,7 @@ export default function TestForm() {
                 ) : (
                     <div
                         onClick={handleNext}
-                        className={`cursor-pointer w-[10vw] h-[10vw] lg:w-[3vw] lg:h-[3vw] rounded-full border flex items-center justify-center transition-all ${
+                        className={`cursor-pointer w-[14vw] h-[14vw] lg:w-[3vw] lg:h-[3vw] rounded-full border flex items-center justify-center transition-all ${
                             answers[currentQuestion.id]
                                 ? "border-[#0c0c0c] bg-[#0c0c0c]"
                                 : "border-[#878787] hover:border-[#0c0c0c]"
@@ -713,7 +732,7 @@ export default function TestForm() {
                                 ? "text-white"
                                 : "text-[#878787] hover:text-[#0c0c0c]"
                         }`}>
-                            <ArrowRight className="w-[3vw] lg:w-[1vw] cursor-pointer" />
+                            <ArrowRight className="w-[5vw] lg:w-[1vw] cursor-pointer" />
                         </button>
                     </div>
                 )}

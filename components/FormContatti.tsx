@@ -54,7 +54,7 @@ export default function FormContatti() {
             onSubmit={handleSubmit}
             className="flex flex-col items-center pb-[5vw] pt-[2vw] w-full "
         >
-            <div className="gap-[2vw] flex flex-col w-full">
+            <div className="gap-6 flex flex-col w-full">
                 <input
                     type="text"
                     name="name"

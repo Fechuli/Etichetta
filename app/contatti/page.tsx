@@ -21,18 +21,35 @@ export default function Contatti() {
                         <br /> Nel frattempo fatti un giro tra i nostri
                         progetti.
                     </p>
-                    <div className="flex flex-col sm:flex-row items-center lg:gap-[2vw] gap-[5vw] w-full">
+                    <div className="flex lg:justify-start justify-between lg:items-center gap-[5vw] lg:gap-[3vw] lg:px-[1vw] pt-[2vw]">
                         <Link
-                            href="https://www.backdoor-studio.com"
+                            href="https://backdoor-studio.com"
                             target="_blank"
-                            className="text-center w-full sm:w-auto lg:w-[15vw] border-white mt-[5vw] px-6 py-3 border transition-colors bg-white hover:bg-[#0c0c0c] text-[#0c0c0c] hover:text-white rounded-full"
+                            rel="noopener noreferrer"
+                            className="group duration-300 hover:bg-white text-white hover:text-[#0c0c0c] rounded-full border border-white inline-flex items-center justify-center px-[6vw] lg:px-[3vw] py-[2vw] lg:py-[0.5vw] gap-[2vw] lg:gap-[1vw] cursor-pointer w-fit"
                         >
-                            Il nostro sito
+                            <span className="text-[3.5vw] lg:text-[1vw]">
+                                Website
+                            </span>
+                            <svg
+                                className="w-[4vw] h-[4vw] lg:w-[1.2vw] lg:h-[1.2vw] transition-transform duration-300 group-hover:translate-x-1"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                                />
+                            </svg>
                         </Link>
                         <Link
                             href="https://www.instagram.com/backdoorstudiodesign/"
                             target="_blank"
-                            className="text-center w-full sm:w-auto lg:w-[15vw] border-white mt-[5vw] px-6 py-3 border transition-colors bg-white hover:bg-[#0c0c0c] text-[#0c0c0c] hover:text-white rounded-full"
+                            rel="noopener noreferrer"
+                            className="text-[3.5vw] lg:translate-y-0 translate-y-[1.5vw] lg:text-[1vw] text-[#878787] hover:text-white transition-colors duration-300 underline"
                         >
                             Instagram
                         </Link>

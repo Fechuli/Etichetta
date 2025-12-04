@@ -1,16 +1,49 @@
 "use client";
 
 import { Instagram } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Logo from "./Logo";
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isDark, setIsDark] = useState(false);
+
+    useEffect(() => {
+        const checkBackground = () => {
+            const logoElement = document.querySelector("[data-logo]");
+            if (!logoElement) return;
+
+            const rect = logoElement.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+
+            const elementsAtPoint = document.elementsFromPoint(x, y);
+
+            for (const el of elementsAtPoint) {
+                if (el === logoElement || el.contains(logoElement)) continue;
+
+                const bg = window.getComputedStyle(el).backgroundColor;
+                if (bg && bg !== "rgba(0, 0, 0, 0)" && bg !== "transparent") {
+                    const rgb = bg.match(/\d+/g);
+                    if (rgb) {
+                        const brightness = (parseInt(rgb[0]) + parseInt(rgb[1]) + parseInt(rgb[2])) / 3;
+                        setIsDark(brightness < 128);
+                    }
+                    break;
+                }
+            }
+        };
+
+        checkBackground();
+        const interval = setInterval(checkBackground, 100);
+
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <>
-            <div className="flex justify-between items-center inter py-[3vw] px-[5vw] lg:py-[1vw] lg:px-[2vw] fixed w-full z-50  backdrop-blur-sm lg:bg-transparent lg:backdrop-blur-none">
+            <div className="flex justify-between items-center inter py-[3vw] px-[5vw] lg:py-[1vw] lg:px-[2vw] fixed w-full z-50">
                 <Link
                     href="/chi-siamo"
                     className="hidden lg:block text-[1vw] text-[#878787] hover:underline"
@@ -40,14 +73,8 @@ export default function Navbar() {
                     />
                 </button>
 
-                <Link href="/" className="relative">
-                    <Image
-                        src={"/images/logo.svg"}
-                        alt="Logo etichetta"
-                        width={100}
-                        height={100}
-                        className="w-[20vw] h-auto lg:w-[100px]"
-                    />
+                <Link href="/" data-logo>
+                    <Logo className={`w-[20vw] h-auto lg:w-[100px] transition-colors duration-500 ${isDark ? "text-white" : "text-black"}`} />
                 </Link>
 
                 <Link
