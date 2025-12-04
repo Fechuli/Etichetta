@@ -5,7 +5,11 @@
       "Bash(npm install:*)",
       "WebSearch",
       "WebFetch(domain:fonts.google.com)",
-      "WebFetch(domain:unpkg.com)"
+      "WebFetch(domain:unpkg.com)",
+      "Bash(node -e:*)",
+      "Bash(curl:*)",
+      "Bash(unzip:*)",
+      "Bash(powershell:*)"
     ],
     "deny": [],
     "ask": []

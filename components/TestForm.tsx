@@ -1,10 +1,12 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
 import React, { useState, useRef, useEffect } from "react";
 import { words } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
+import { jsPDF } from "jspdf";
+import { loadInterFonts } from "@/lib/fonts";
 
 interface Question {
     id: number;
@@ -116,6 +118,10 @@ export default function TestForm() {
     const [selectedWord, setSelectedWord] = useState<string>("");
     const [isAnimating, setIsAnimating] = useState(false);
     const [isInitialized, setIsInitialized] = useState(false);
+    const [showPdfModal, setShowPdfModal] = useState(false);
+    const [pdfName, setPdfName] = useState("");
+    const [pdfSurname, setPdfSurname] = useState("");
+    const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
 
     const containerRef = useRef<HTMLDivElement>(null);
     const titleRef = useRef<HTMLHeadingElement>(null);
@@ -178,10 +184,8 @@ export default function TestForm() {
         setSelectedWord(randomWord);
 
         try {
-            console.log("Saving to localStorage:", randomWord);
             localStorage.setItem("etichetta-test-word", randomWord);
             localStorage.setItem("etichetta-test-completed", "true");
-            console.log("Saved successfully");
         } catch (error) {
             console.error("Error saving to localStorage:", error);
         }
@@ -265,63 +269,332 @@ export default function TestForm() {
             );
     };
 
+    const handleDownloadPDF = () => {
+        setShowPdfModal(true);
+    };
+
+    const generatePDF = async () => {
+        if (!pdfName.trim() || !pdfSurname.trim()) return;
+
+        setIsGeneratingPdf(true);
+
+        try {
+            const doc = new jsPDF({
+                orientation: "portrait",
+                unit: "mm",
+                format: "a4",
+            });
+
+            const fonts = await loadInterFonts();
+            doc.addFileToVFS("Inter-Regular.ttf", fonts.regular);
+            doc.addFont("Inter-Regular.ttf", "Inter", "normal");
+            doc.addFileToVFS("Inter-SemiBold.ttf", fonts.semibold);
+            doc.addFont("Inter-SemiBold.ttf", "Inter", "bold");
+            doc.addFileToVFS("Inter-Light.ttf", fonts.light);
+            doc.addFont("Inter-Light.ttf", "Inter", "light");
+
+            const pageWidth = 210;
+            const pageHeight = 297;
+            const colWidth = pageWidth / 9;
+            const rowHeight = pageHeight / 12;
+
+            doc.setFillColor(0, 55, 255);
+            doc.rect(0, 0, colWidth, pageHeight - rowHeight, "F");
+
+            doc.setFillColor(189, 255, 0);
+            doc.rect(0, pageHeight - rowHeight, colWidth, rowHeight, "F");
+
+            const contentStartX = colWidth + 10;
+            let currentY = 30;
+
+            doc.setFont("Inter", "bold");
+            doc.setFontSize(16);
+            doc.setTextColor(12, 12, 12);
+            doc.text(
+                "Attestato di assegnazione provvisoria di tratto",
+                contentStartX,
+                currentY
+            );
+
+            currentY += 15;
+
+            doc.setFont("Inter", "light");
+            doc.setFontSize(11);
+            doc.setTextColor(135, 135, 135);
+            doc.setCharSpace(-0.3);
+            doc.text(
+                "Questo documento certifica ufficialmente che:",
+                contentStartX,
+                currentY
+            );
+
+            currentY += 15;
+
+            doc.setFont("Inter", "bold");
+            doc.setFontSize(14);
+            doc.setTextColor(12, 12, 12);
+            doc.setCharSpace(0);
+            const fullName =
+                `${pdfName.trim()} ${pdfSurname.trim()}`.toUpperCase();
+            doc.text(fullName, contentStartX, currentY);
+
+            currentY += 15;
+
+            doc.setFont("Inter", "light");
+            doc.setFontSize(11);
+            doc.setTextColor(135, 135, 135);
+            doc.setCharSpace(-0.3);
+            const today = new Date().toLocaleDateString("it-IT", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+            });
+
+            const descriptionLines = [
+                "ha completato il Test dell'Impossibilità di Essere Definiti",
+                `in data ${today}`,
+                "ed è stato temporaneamente identificato con il tratto:",
+            ];
+
+            descriptionLines.forEach((line) => {
+                doc.text(line, contentStartX, currentY);
+                currentY += 7;
+            });
+
+            currentY += 15;
+
+            doc.setFont("Inter", "bold");
+            doc.setFontSize(56);
+            doc.setTextColor(12, 12, 12);
+            doc.setCharSpace(-1.5);
+            doc.text(
+                selectedWord.charAt(0).toUpperCase() +
+                    selectedWord.slice(1).toLowerCase(),
+                contentStartX,
+                currentY
+            );
+            doc.setCharSpace(0);
+
+            currentY += 30;
+
+            doc.setFont("Inter", "light");
+            doc.setFontSize(11);
+            doc.setTextColor(135, 135, 135);
+            doc.setCharSpace(-0.3);
+            doc.text(
+                "Nessuno potrà capire cosa significa,",
+                contentStartX,
+                currentY
+            );
+            currentY += 6;
+            doc.text("ma tu sì.", contentStartX, currentY);
+
+            currentY += 20;
+
+            doc.setFont("Inter", "light");
+            doc.setTextColor(135, 135, 135);
+            doc.text("Firmato:", contentStartX, currentY);
+
+            currentY += 5;
+
+            try {
+                const firmaImg = await loadImage("/images/pdf/firma.png");
+                doc.addImage(firmaImg, "PNG", contentStartX, currentY, 50, 20);
+            } catch (e) {
+                console.error("Errore caricamento firma:", e);
+            }
+
+            doc.setFont("Inter", "light");
+            doc.setFontSize(8);
+            doc.setTextColor(135, 135, 135);
+            doc.setCharSpace(-0.3);
+            const footerY = pageHeight - 15;
+            doc.text(
+                "Questo attestato non ha valore legale, ma ne ha uno emotivo.",
+                contentStartX,
+                footerY
+            );
+            doc.text(
+                "Un progetto di Backdoor Studio. Insieme a chi accetta anche le sue versioni sbagliate.",
+                contentStartX,
+                footerY + 5
+            );
+
+            try {
+                const backdoorImg = await loadImage("/images/pdf/backdoor.png");
+                const imgWidth = colWidth - 4;
+                doc.addImage(
+                    backdoorImg,
+                    "PNG",
+                    pageWidth - imgWidth,
+                    10,
+                    imgWidth,
+                    pageHeight - 40
+                );
+            } catch (e) {
+                console.error("Errore caricamento backdoor:", e);
+            }
+
+            doc.save(`attestato-${selectedWord.toLowerCase()}.pdf`);
+            setShowPdfModal(false);
+            setPdfName("");
+            setPdfSurname("");
+        } catch (error) {
+            console.error("Errore generazione PDF:", error);
+        } finally {
+            setIsGeneratingPdf(false);
+        }
+    };
+
+    const loadImage = (src: string): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const img = new window.Image();
+            img.crossOrigin = "anonymous";
+            img.onload = () => {
+                const canvas = document.createElement("canvas");
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext("2d");
+                if (ctx) {
+                    ctx.drawImage(img, 0, 0);
+                    resolve(canvas.toDataURL("image/png"));
+                } else {
+                    reject(new Error("Cannot get canvas context"));
+                }
+            };
+            img.onerror = reject;
+            img.src = src;
+        });
+    };
+
     if (isCompleted) {
         return (
-            <div
-                ref={containerRef}
-                className="flex flex-col items-center justify-center h-full max-w-4xl mx-auto px-4 transition-all duration-1000"
-            >
-                <h2
-                    ref={titleRef}
-                    className="text-[#878787] text-[3.5vw] lg:text-[1vw] leading-[5vw] lg:leading-normal mb-[4vw] text-center max-w-2xl"
-                    style={{ opacity: isAnimating ? 0 : undefined }}
-                >
-                    Questo sei tu ora:
-                </h2>
+            <>
+                {showPdfModal && (
+                    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4">
+                        <div className="bg-white rounded-2xl p-8 max-w-md w-full relative">
+                            <button
+                                onClick={() => setShowPdfModal(false)}
+                                className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors"
+                            >
+                                <X size={24} />
+                            </button>
 
-                <div className="relative my-[2vw] lg:my-0">
-                    <h1
-                        ref={wordRef}
-                        className="text-[12vw] lg:text-[5vw] -tracking-[0.5vw] lg:-tracking-[0.2vw] font-bold text-white leading-none mb-[5vw]"
-                        style={{ opacity: isAnimating ? 0 : undefined }}
-                    >
-                        {selectedWord}
-                    </h1>
-                    <div className="absolute left-[50%] -translate-x-[50%] top-[18%] ">
-                        <Image
-                            src={"/images/etichetta_final.svg"}
-                            alt="Hero Image"
-                            width={700}
-                            height={500}
-                            className="scale-[3.5]"
-                        />
+                            <h3 className="text-2xl font-semibold text-[#0c0c0c] mb-2">
+                                Scarica il tuo attestato
+                            </h3>
+                            <p className="text-[#878787] mb-6">
+                                Inserisci il tuo nome e cognome per
+                                personalizzare l&apos;attestato
+                            </p>
+
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-[#0c0c0c] mb-1">
+                                        Nome
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={pdfName}
+                                        onChange={(e) =>
+                                            setPdfName(e.target.value)
+                                        }
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0c0c0c] text-[#0c0c0c]"
+                                        placeholder="Il tuo nome"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-[#0c0c0c] mb-1">
+                                        Cognome
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={pdfSurname}
+                                        onChange={(e) =>
+                                            setPdfSurname(e.target.value)
+                                        }
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#0c0c0c] text-[#0c0c0c]"
+                                        placeholder="Il tuo cognome"
+                                    />
+                                </div>
+                            </div>
+
+                            <button
+                                onClick={generatePDF}
+                                disabled={
+                                    !pdfName.trim() ||
+                                    !pdfSurname.trim() ||
+                                    isGeneratingPdf
+                                }
+                                className="w-full mt-6 py-3 px-6 bg-[#0c0c0c] text-white rounded-full font-medium hover:bg-[#333] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                {isGeneratingPdf
+                                    ? "Generazione in corso..."
+                                    : "Scarica PDF"}
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <p
-                    ref={paragraphRef}
-                    className="text-[#878787] text-[3.5vw] lg:text-[1vw] leading-[5vw] lg:leading-normal mb-8 text-center max-w-2xl"
-                    style={{ opacity: isAnimating ? 0 : undefined }}
-                >
-                    Una parola che non esisteva prima di questo momento.
-                    <br /> Una parte di te che nessuno aveva mai nominato
-                </p>
+                )}
 
                 <div
-                    ref={buttonsRef}
-                    className="flex flex-col gap-[2vw] pt-[5vw]"
-                    style={{ opacity: isAnimating ? 0 : undefined }}
+                    ref={containerRef}
+                    className="flex flex-col items-center justify-center h-full max-w-4xl mx-auto px-4 transition-all duration-1000"
                 >
-                    <button className="rounded-full py-[0.5vw] px-[2vw] transition-colors cursor-pointer border border-white hover:bg-[#0c0c0c] bg-white text-[#0c0c0c] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed">
-                        Visualizza attestato
-                    </button>
-                    <Link
-                        className="text-white hover:underline"
-                        href="/contatti"
+                    <h2
+                        ref={titleRef}
+                        className="text-[#878787] text-[3.5vw] lg:text-[1vw] leading-[5vw] lg:leading-normal mb-[4vw] text-center max-w-2xl"
+                        style={{ opacity: isAnimating ? 0 : undefined }}
                     >
-                        Richiedilo in forma fisica
-                    </Link>
+                        Questo sei tu ora:
+                    </h2>
+
+                    <div className="relative my-[2vw] lg:my-0">
+                        <h1
+                            ref={wordRef}
+                            className="text-[12vw] lg:text-[5vw] -tracking-[0.5vw] lg:-tracking-[0.2vw] font-bold text-white leading-none mb-[5vw]"
+                            style={{ opacity: isAnimating ? 0 : undefined }}
+                        >
+                            {selectedWord}
+                        </h1>
+                        <div className="absolute left-[50%] -translate-x-[50%] top-[18%] ">
+                            <Image
+                                src={"/images/etichetta_final.svg"}
+                                alt="Hero Image"
+                                width={700}
+                                height={500}
+                                className="scale-[3.5]"
+                            />
+                        </div>
+                    </div>
+                    <p
+                        ref={paragraphRef}
+                        className="text-[#878787] text-[3.5vw] lg:text-[1vw] leading-[5vw] lg:leading-normal mb-8 text-center max-w-2xl"
+                        style={{ opacity: isAnimating ? 0 : undefined }}
+                    >
+                        Una parola che non esisteva prima di questo momento.
+                        <br /> Una parte di te che nessuno aveva mai nominato
+                    </p>
+
+                    <div
+                        ref={buttonsRef}
+                        className="flex flex-col gap-[2vw] pt-[5vw]"
+                        style={{ opacity: isAnimating ? 0 : undefined }}
+                    >
+                        <button
+                            onClick={handleDownloadPDF}
+                            className="rounded-full py-[0.5vw] px-[2vw] transition-colors cursor-pointer border border-white hover:bg-[#0c0c0c] bg-white text-[#0c0c0c] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            Scarica attestato
+                        </button>
+                        <Link
+                            className="text-white hover:underline text-center"
+                            href="/contatti"
+                        >
+                            Richiedilo in forma fisica
+                        </Link>
+                    </div>
                 </div>
-            </div>
+            </>
         );
     }
 
@@ -383,9 +656,17 @@ export default function TestForm() {
                 ) : (
                     <div
                         onClick={handleNext}
-                        className="cursor-pointer w-[10vw] h-[10vw] lg:w-[3vw] lg:h-[3vw] rounded-full border border-[#878787] flex items-center justify-center hover:border-[#0c0c0c] transition-all"
+                        className={`cursor-pointer w-[10vw] h-[10vw] lg:w-[3vw] lg:h-[3vw] rounded-full border flex items-center justify-center transition-all ${
+                            answers[currentQuestion.id]
+                                ? "border-[#0c0c0c] bg-[#0c0c0c]"
+                                : "border-[#878787] hover:border-[#0c0c0c]"
+                        }`}
                     >
-                        <button className="text-[#878787] hover:text-[#0c0c0c] transition-all">
+                        <button className={`transition-all ${
+                            answers[currentQuestion.id]
+                                ? "text-white"
+                                : "text-[#878787] hover:text-[#0c0c0c]"
+                        }`}>
                             <ArrowRight className="w-[3vw] lg:w-[1vw] cursor-pointer" />
                         </button>
                     </div>
