@@ -2,6 +2,18 @@ import FormContatti from "@/components/FormContatti";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Contatti",
+    description:
+        "Richiedi la tua etichetta fisica. Il tuo tratto stampato in 3D, in plastica PLA nera. Un portachiavi unico che non somiglia a nessun altro.",
+    openGraph: {
+        title: "Contatti | Etichetta",
+        description:
+            "Richiedi la tua etichetta fisica stampata in 3D. Un portachiavi unico che non somiglia a nessun altro.",
+    },
+};
 
 export default function Contatti() {
     return (

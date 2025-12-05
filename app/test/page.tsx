@@ -1,6 +1,18 @@
 import PersistentTimer from "@/components/Timer";
 import TestForm from "@/components/TestForm";
 import React from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Test",
+    description:
+        "Fai il Test dell'Impossibilità di Essere Definiti. Rispondi alle domande e scopri la tua parola unica, che non esisteva prima di questo momento.",
+    openGraph: {
+        title: "Test | Etichetta",
+        description:
+            "Fai il Test dell'Impossibilità di Essere Definiti. Rispondi alle domande e scopri la tua parola unica.",
+    },
+};
 
 export default function TestPage() {
     return (

@@ -99,7 +99,7 @@ export default function Manifesto() {
                     className="lg:w-[40vw] w-[100vw] opacity-30 lg:opacity-100"
                 />
             </div>
-            
+
             <div
                 ref={containerRef}
                 className="lg:py-0 py-[10vw] lg:grid lg:grid-cols-2 flex flex-col inter min-h-screen w-screen lg:pt-[15vw] pt-[25vw] px-[5vw] lg:px-0 overflow-hidden backdrop-blur-[1vw] bg-[rgba(255,255,255,0.8)]"
@@ -112,15 +112,18 @@ export default function Manifesto() {
                         Manifesto
                     </h1>
                 </div>
-                
+
                 <div className="lg:pr-[2vw] text-[#878787]">
                     <p
                         ref={paragraphRef}
                         className="lg:max-w-[45vw] lg:px-[1vw] text-[4vw] lg:text-[1vw] leading-[6vw] lg:leading-normal"
                     >
-                        <strong className="text-[#0c0c0c]">Le parole ci precedono.</strong> Prima ancora di
-                        nascere, esistono già le categorie che ci definiranno:
-                        figlio, figlia, primo, secondo, atteso, non voluto.
+                        <strong className="text-[#0c0c0c]">
+                            Le parole ci precedono.
+                        </strong>{" "}
+                        Prima ancora di nascere, esistono già le categorie che
+                        ci definiranno: figlio, figlia, primo, secondo, atteso,
+                        non voluto.
                         <br />
                         <br />
                         <strong className="text-[#0c0c0c]">
@@ -133,28 +136,32 @@ export default function Manifesto() {
                         siamo timidi, estroversi, bravi, cattivi, normali,
                         strani.
                         <strong className="text-[#0c0c0c]">
-                            {" "}Ci abituiamo a riconoscerci in parole che non
+                            {" "}
+                            Ci abituiamo a riconoscerci in parole che non
                             abbiamo scelto.
                         </strong>
                         <br />
                         <br />
                         Ti offriamo una parola inventata.
                         <strong className="text-[#0c0c0c]">
-                            {" "}Non ha storia, non ha giudizi, non ha aspettative.
-                        </strong>
-                        {" "}È tua nel momento in cui la ricevi, e resterà tua finché
+                            {" "}
+                            Non ha storia, non ha giudizi, non ha aspettative.
+                        </strong>{" "}
+                        È tua nel momento in cui la ricevi, e resterà tua finché
                         sceglierai di tenerla.
                         <br />
                         <br />
-                        <strong className="text-[#0c0c0c]">La parola sbagliata non esiste.</strong> Esiste
-                        solo la parola che hai oggi, che potresti non avere
-                        domani, che nessuno può toglierti se non tu.
-                        <br />
-                        <br />
-                        Quello che riceverai è il promemoria di
-                        questo momento:
                         <strong className="text-[#0c0c0c]">
-                            {" "}quando hai scelto di essere qualcosa che nessuno
+                            La parola sbagliata non esiste.
+                        </strong>{" "}
+                        Esiste solo la parola che hai oggi, che potresti non
+                        avere domani, che nessuno può toglierti se non tu.
+                        <br />
+                        <br />
+                        Quello che riceverai è il promemoria di questo momento:
+                        <strong className="text-[#0c0c0c]">
+                            {" "}
+                            quando hai scelto di essere qualcosa che nessuno
                             aveva mai nominato prima.
                         </strong>
                     </p>
