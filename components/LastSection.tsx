@@ -162,7 +162,7 @@ export default function LastSection() {
                     ref={paragraph1Ref}
                     className="text-white lg:mb-[2vw] text-[3.5vw] lg:text-[1vw] leading-[5vw] lg:leading-normal"
                 >
-                    Puoi farlo una volta sola.
+                    Puoi farlo <strong>una volta sola.</strong>
                     <br />
                     Perché scegliere davvero significa non tornare indietro.
                 </p>

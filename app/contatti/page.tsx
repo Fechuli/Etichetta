@@ -12,7 +12,7 @@ export default function Contatti() {
                         Il tuo tratto verrà stampato in 3D, in plastica PLA
                         nera, lungo circa 10 cm.
                         <br /> È un portachiavi, ma soprattutto un’etichetta
-                        chenon somiglia a nessun’altra.
+                        che non somiglia a nessun’altra.
                     </p>
                     <FormContatti />
                     <p className="text-[#878787]">

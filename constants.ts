@@ -1,98 +1,108 @@
 export const words = [
-        "batto",
-        "bazzo",
-        "baldoz",
-        "becca",
-        "beccez",
-        "bisa",
-        "bectro",
-        "betzo",
-        "blut",
-        "brabbo",
-        "brozzo",
-        "buzzen",
-        "cacchio",
-        "denbo",
-        "denbro",
-        "denez",
-        "denix",
-        "denzo",
-        "drocco",
-        "drogo",
-        "drozzo",
-        "feglio",
-        "frocco",
-        "frozzo",
-        "ghetto",
-        "ghettro",
-        "ghezz",
-        "guffo",
-        "guzzo",
-        "lagba",
-        "lagozzo",
-        "lagtro",
-        "lert",
-        "lodda",
-        "lodro",
-        "lodzo",
-        "luchen",
-        "lucho",
-        "luchoz",
-        "luchro",
-        "muzzon",
-        "neddo",
-        "nedzo",
-        "nuccez",
-        "nuccel",
-        "nuccen",
-        "nuccix",
-        "nuccio",
-        "nuccol",
-        "nuddo",
-        "pizzal",
-        "pizzan",
-        "pizzel",
-        "pizzix",
-        "plozzo",
-        "pozzel",
-        "pozzix",
-        "pratzo",
-        "pritto",
-        "rabbo",
-        "rabtro",
-        "rabzo",
-        "rabzot",
-        "scendro",
-        "scenza",
-        "snatto",
-        "snedro",
-        "snorbo",
-        "snotto",
-        "teglio",
-        "tenbro",
-        "tenoz",
-        "tenzo",
-        "tenzox",
-        "tondel",
-        "tondix",
-        "trunbo",
-        "tronco",
-        "trunel",
-        "trunzo",
-        "vettro",
-        "vexzo",
-        "zanzo",
-        "zennox",
-        "zennut",
-        "zorba",
-        "zorbix",
-        "zorzo",
-        "zotto",
-        "zundro",
-        "zupen",
-        "zuzzo",
-        "zuzzon",
-        "zuzzox",
-        "zenko",
-        "zetta",
+        "abba", // A
+        "agnadio", // O
+        "batto", // O
+        "bazzo", // O
+        "baldoz", // X
+        "becca", // A
+        "beccez", // X
+        "bisa", // A
+        "bectra", // A
+        "betzo", // O
+        "blut", // X
+        "brabbo", // O
+        "brozza", // A
+        "buzzen", // X
+        "caccior", // X
+        "cazza", // A
+        "ceglo", // O
+        "cegloz", // X
+        "cenz", // X
+        "cetto", // O
+        "chetta", // A
+        "denbo", // O
+        "denbro", // O
+        "denez", // X
+        "denix", // X
+        "denzo", // O
+        "drocca", // A
+        "drogo", // O
+        "drozzo", // O
+        "feglia", // A
+        "frocco", // O
+        "frozza", // A
+        "ghetto", // O
+        "ghettro", // O
+        "ghezz", // X
+        "guffo", // O
+        "guzzo", // O
+        "lagba", // A
+        "lagozzo", // O
+        "lagtro", // O
+        "lert", // X
+        "lodda", // A
+        "lodro", // O
+        "lodza", // A
+        "luchen", // X
+        "lucho", // O
+        "luchoz", // X
+        "luchro", // O
+        "muzzon", // X
+        "muzzox", // X
+        "mezarco", // X
+        "neddo", // O
+        "nedzo", // O
+        "nuccez", // X
+        "nuccel", // X
+        "nuccen", // X
+        "nuccix", // X
+        "nuccio", // O
+        "nuccol", // X
+        "nuddo", // O
+        "pizzal", // X
+        "pizzan", // X
+        "pizzel", // X
+        "pizzix", // X
+        "plozza", // A
+        "pozzel", // X
+        "pozzix", // X
+        "pratzo", // O
+        "pritta", // A
+        "rabbo", // O
+        "rabtro", // O
+        "rabza", // A
+        "rabzot", // X
+        "scendro", // O
+        "scenza", // A
+        "snatto", // O
+        "snedro", // O
+        "snorba", // A
+        "snotto", // O
+        "teglio", // O
+        "tenbra", // A
+        "tenoz", // X
+        "tenza", // A
+        "tenzox", // X
+        "tondel", // X
+        "tondix", // X
+        "trunbo", // O
+        "tronca", // A
+        "trunel", // X
+        "trunzo", // O
+        "vettro", // O
+        "vexzo", // X
+        "zanzo", // O
+        "zennox", // X
+        "zennut", // X
+        "zorba", // A
+        "zorbix", // X
+        "zorza", // A
+        "zotta", // A
+        "zundro", // O
+        "zupen", // X
+        "zuzza", // A
+        "zuzzon", // X
+        "zuzzox", // X
+        "zenko", // O
+        "zetta", // A
     ];

@@ -163,7 +163,7 @@ export default function SecondSection() {
             
             <div className="pt-[30vw] lg:pt-[20vw] flex flex-col items-start lg:items-end justify-center backdrop-blur-[2vw] pb-[20vw] lg:pb-[10vw] bg-[rgba(255,255,255,0.8)] px-[5vw] lg:px-0">
                 <div className="flex flex-col">
-                    <h1 ref={titleRef} className="text-[6vw] lg:text-[3vw] text-left text-[#878787] leading-[7vw] lg:leading-[3vw] lg:pr-[15vw]">
+                    <h1 ref={titleRef} className="text-[6vw] lg:text-[3vw] text-left text-[#878787] leading-[7vw] lg:leading-[3.5vw] lg:pr-[15vw]">
                         <strong className="text-[#0c0c0c]">Tutti hanno un&apos;idea di te.</strong><br/>
                         <strong>Questo progetto no.</strong>
                     </h1>

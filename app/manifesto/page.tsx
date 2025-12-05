@@ -151,7 +151,7 @@ export default function Manifesto() {
                         domani, che nessuno può toglierti se non tu.
                         <br />
                         <br />
-                        L&apos;oggetto che riceverai è il promemoria fisico di
+                        Quello che riceverai è il promemoria di
                         questo momento:
                         <strong className="text-[#0c0c0c]">
                             {" "}quando hai scelto di essere qualcosa che nessuno

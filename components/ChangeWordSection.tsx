@@ -97,7 +97,7 @@ export default function ChangeWordSection() {
                 tl.to(wordRef.current, {
                     y: "-120%",
                     rotation: -5,
-                    duration: 1.2,
+                    duration: 0.6,
                     ease: "power2.in",
                     onComplete: () => {
                         setCurrentWordIndex(
@@ -108,7 +108,7 @@ export default function ChangeWordSection() {
                 }).to(wordRef.current, {
                     y: "0%",
                     rotation: 0,
-                    duration: 1.2,
+                    duration: 0.6,
                     ease: "power2.out",
                 });
             };
@@ -134,7 +134,7 @@ export default function ChangeWordSection() {
                         onComplete: () => {
                             animationRef.current = setInterval(
                                 animateWord,
-                                3000
+                                1500
                             );
                         },
                     });
@@ -187,16 +187,6 @@ export default function ChangeWordSection() {
                                 Come questa, per esempio
                             </p>
                         </span>
-                    </div>
-
-                    <div>
-                        <ButtonHero
-                            text="Vai al test"
-                            arrowDirection="right"
-                             function={() => {
-                                router.push('/test');
-                            }} 
-                        />
                     </div>
                 </div>
             </div>
