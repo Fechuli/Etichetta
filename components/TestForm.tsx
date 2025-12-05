@@ -17,96 +17,95 @@ interface Question {
 const questions: Question[] = [
     {
         id: 1,
-        question: "Ti fidi del tuo istinto o cerchi conferme?",
+        question: "Quando devi iniziare qualcosa di importante, come ti prepari?",
         answers: [
-            "Sempre istinto, anche quando sbaglia.",
-            "Conferme, finché mi convincono.",
-            "Dipende da chi me lo chiede.",
+            "Pianifico tutto con precisione chirurgica.",
+            "Metto una playlist e ci butto dentro l’ansia.",
+            "Inizio. Poi capisco se era importante.",
         ],
     },
     {
         id: 2,
         question:
-            "Quando prendi una decisione importante, la condividi con qualcuno?",
+            "Ti capita spesso di cambiare idea all’ultimo?",
         answers: [
-            "Sì, sempre. Mi aiuta a pensarci meglio.",
-            "No, mi fido solo del mio caos.",
-            "La condivido con una voce nella testa.",
+            "No, mai.",
+            "Sempre, e con un certo stile.",
+            "Sì, ma solo su decisioni tipo: “Esisto davvero?”",
         ],
     },
     {
         id: 3,
-        question: "Ti senti più a tuo agio nel caos o nel controllo?",
+        question: "Come reagisci quando non capisci qualcosa?",
         answers: [
-            "Caos: mi ci oriento meglio che in un ufficio.",
-            "Controllo: solo così riesco a respirare.",
-            "Un caos controllato da nessuno, soprattutto da me.",
+            "Lo dico subito, voglio capire.",
+            "Fingo di sapere tutto, poi googlo.",
+            "Lo ignoro finché smette di esistere.",
         ],
     },
     {
         id: 4,
-        question:
-            "Hai mai provato a cambiare idea su qualcosa di fondamentale?",
+        question: "Hai mai sentito di non essere dove dovresti?",
         answers: [
-            "Sì, ed è stato brutale.",
-            "No, tengo duro anche quando so che sbaglio.",
-            "Cambiare idea è il mio sport preferito.",
+            "Sì, almeno una volta a settimana.",
+            "Solo nei sogni (o nelle call).",
+            "Sempre. Infatti ora sto traslocando dentro me stesso.",
         ],
     },
     {
         id: 5,
-        question: "Sei mai stato convinto di avere ragione… e poi no?",
+        question: "Quando pensi al futuro, ti viene in mente…",
         answers: [
-            "Una volta. Forse due.",
-            "Ogni giorno, con orgoglio.",
-            "No, era il mondo che aveva torto.",
+            "Un file Excel ordinato.",
+            "Un campo aperto con mille possibilità.",
+            "Un criceto in tuta da astronauta.",
         ],
     },
     {
         id: 6,
-        question: "Quando nessuno ti guarda…",
+        question: "Hai mai dato un nome a un oggetto in casa tua?",
         answers: [
-            "Controllo se sono ancora montato bene.",
-            "Rileggo il libretto di istruzioni dell'IKEA che non ho mai seguito.",
-            "Cerco di capire se questo test è iniziato davvero o se è solo la mia digestione.",
+            "Sì, e lo chiamo quando mi sento solo.",
+            "Solo a quello che vibra.",
+            "No, ma lui ha dato un nome a me.",
         ],
     },
     {
         id: 7,
         question:
-            "Hai mai avuto la sensazione di essere stato inventato da qualcun altro?",
+            "Ti è mai sembrato che una stampante ti stesse giudicando?",
         answers: [
-            "Solo nei sogni degli altri.",
-            "Me lo dico da anni, ma nessuno mi ascolta.",
-            "Sto ancora aspettando i diritti d'autore.",
+            "Sì, quando non le ho cambiato il toner.",
+            "No, sono io che giudico lei.",
+            "Solo quando finge di essere offline.",
         ],
     },
     {
         id: 8,
-        question: "Quale di questi oggetti ti rappresenta meglio?",
+        question: "Qual è la tua teoria più strana sull’universo?",
         answers: [
-            "Una sedia piegata a metà.",
-            "Una fetta di pane troppo grande per il tostapane.",
-            "Un cuscino che sa troppe cose.",
+            "Siamo tutti sogni riciclati di qualcun altro.",
+            "Le scale mobili decidono se salire o scendere.",
+            "Ogni volta che sbadiglio, si resetta un piccione.",
         ],
     },
     {
         id: 9,
-        question: "Cosa pensi mentre fai questo test?",
+        question: "Hai 5 minuti per uscire da casa. Cosa prendi?",
         answers: [
-            "Che sto rispondendo con onestà, ma non so più a cosa.",
-            "Che sto costruendo una nuova identità con viti a brugola.",
-            "Che forse sto solo arredando il mio disagio.",
+            "Cellulare, chiavi, dignità.",
+            "Una banana e il certificato di nascita.",
+            "La scrivania. Tanto poi mi serve.",
         ],
     },
     {
         id: 10,
         question:
-            "Se un biscotto della fortuna ti dicesse chi sei, ci crederesti?",
+            "Un giorno, una giraffa ti consegna un biglietto con scritto il tuo vero nome. Cosa fai?",
         answers: [
-            "Solo se lo trovo in una cassettiera IKEA non etichettata.",
-            "No, ma lo aggiungerei alla lista delle opinioni non richieste.",
-            "Sì, questo test mi ha già messo in condizioni peggiori.",
+            "Lo leggo e lo accetto.",
+            "Lo mangio, non si sa mai.",
+            "Lo brucio. Ma lo sento lo stesso, dentro.",
         ],
     },
 ];
