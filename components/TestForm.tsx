@@ -496,7 +496,7 @@ export default function TestForm() {
         ctx.textBaseline = "middle";
 
         ctx.save();
-        ctx.translate(width / 2, height / 2);
+        ctx.translate(width / 2, height / 2 - 150 * scale);
         ctx.rotate(-Math.PI / 2);
 
         const letterSpacing = -15 * scale;
