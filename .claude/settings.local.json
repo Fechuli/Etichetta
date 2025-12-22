@@ -9,7 +9,8 @@
       "Bash(node -e:*)",
       "Bash(curl:*)",
       "Bash(unzip:*)",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "Bash(npm run dev:*)"
     ],
     "deny": [],
     "ask": []

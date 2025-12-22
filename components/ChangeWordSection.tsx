@@ -3,10 +3,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
-import { words } from "../constants";
-import { ArrowUp } from "lucide-react";
 import ButtonHero from "./ButtonHero";
-import { useRouter } from "next/navigation";
 
 export default function ChangeWordSection() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -14,11 +11,19 @@ export default function ChangeWordSection() {
     const wordRef = useRef<HTMLHeadingElement>(null);
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const animationRef = useRef<any>(null);
-    const router = useRouter();
+
+    const simpleWords = [
+        "rof",
+        "lodza", 
+        "vexzo", 
+        "tuc", 
+        "vol",
+        "tenbra",
+    ];
 
     useEffect(() => {
-        setCurrentWordIndex(Math.floor(Math.random() * words.length));
-    }, []);
+        setCurrentWordIndex(Math.floor(Math.random() * simpleWords.length));
+    }, [simpleWords.length]);
 
     useEffect(() => {
         const loadGSAP = async () => {
@@ -101,7 +106,7 @@ export default function ChangeWordSection() {
                     ease: "power2.in",
                     onComplete: () => {
                         setCurrentWordIndex(
-                            (prev) => (prev + 1) % words.length
+                            (prev) => (prev + 1) % simpleWords.length
                         );
                         gsap.set(wordRef.current, { y: "120%", rotation: 5 });
                     },
@@ -149,7 +154,7 @@ export default function ChangeWordSection() {
         };
 
         loadGSAP();
-    }, []);
+    }, [simpleWords.length]);
 
     return (
         <div
@@ -175,18 +180,22 @@ export default function ChangeWordSection() {
                         className="text-[18vw] lg:text-[10vw] font-bold text-[#0c0c0c] -tracking-[0.8vw] lg:-tracking-[0.5vw]"
                         style={{ fontFamily: "Inter, sans-serif" }}
                     >
-                        {words[currentWordIndex]}
+                        {simpleWords[currentWordIndex]}
                     </h1>
                 </div>
 
                 <div className="w-full text-center absolute -bottom-[15vw] lg:-bottom-[5vw]">
                     <div className="mb-[3vw] lg:mb-4">
-                        <span className="inline-flex items-center gap-[2vw] lg:gap-2 text-[#878787]">
-                            <ArrowUp className="w-[3vw] h-[3vw] lg:w-[1.2vw] lg:h-[1.2vw]" />
-                            <p className="text-[3vw] lg:text-[1vw]">
-                                Come questa, per esempio
-                            </p>
-                        </span>
+                        <ButtonHero
+                            text="Fai il test ora"
+                            function={() => {
+                                window.scrollTo({
+                                    top: document.body.scrollHeight,
+                                    behavior: "smooth",
+                                });
+                            }}
+                            arrowDirection="down"
+                        />
                     </div>
                 </div>
             </div>
