@@ -9,7 +9,6 @@ export default function LastSection() {
     const paragraph1Ref = useRef<HTMLParagraphElement>(null);
     const buttonRef = useRef<HTMLDivElement>(null);
     const paragraph2Ref = useRef<HTMLParagraphElement>(null);
-    const paragraph3Ref = useRef<HTMLParagraphElement>(null);
 
     useEffect(() => {
         const loadGSAP = async () => {
@@ -35,16 +34,11 @@ export default function LastSection() {
                 type: "words",
                 wordsClass: "word",
             });
-            const splitP3 = new SplitText(paragraph3Ref.current, {
-                type: "words",
-                wordsClass: "word",
-            });
 
             const allWords = [
                 ...splitTitle.words,
                 ...splitP1.words,
                 ...splitP2.words,
-                ...splitP3.words,
             ];
 
             allWords.forEach((word) => {
@@ -102,7 +96,7 @@ export default function LastSection() {
                     buttonRef.current,
                     {
                         opacity: 1,
-                        y: 50,
+                        y: 0,
                         duration: 0.6,
                         ease: "power2.out",
                     },
@@ -118,17 +112,6 @@ export default function LastSection() {
                         ease: "power2.out",
                     },
                     "-=0.2"
-                )
-                .to(
-                    splitP3.words,
-                    {
-                        y: 0,
-                        rotation: 0,
-                        duration: 0.8,
-                        stagger: 0.05,
-                        ease: "power2.out",
-                    },
-                    "-=0.4"
                 );
 
             return () => {
@@ -136,7 +119,6 @@ export default function LastSection() {
                 splitTitle.revert();
                 splitP1.revert();
                 splitP2.revert();
-                splitP3.revert();
             };
         };
 
@@ -153,18 +135,17 @@ export default function LastSection() {
                     ref={titleRef}
                     className="text-[10vw] lg:text-[4vw] font-semibold leading-[8vw] lg:leading-[4vw] -tracking-[0.5vw] lg:-tracking-[0.3vw] mb-[5vw] lg:mb-[2vw]"
                 >
-                    <span className="text-white">Finche&apos; lo vorrai,</span>
+                    <span className="text-white">Puoi farlo</span>
                     <br />
-                    <span className="text-[#878787]">sarai questo</span>
+                    <span className="text-[#878787]">una volta sola</span>
                 </h1>
 
                 <p
                     ref={paragraph1Ref}
-                    className="text-white lg:mb-[2vw] text-[3.5vw] lg:text-[1vw] leading-[5vw] lg:leading-normal"
+                    className="text-white lg:mb-[7vw] text-[3.5vw] lg:text-[1vw] leading-[5vw] lg:leading-normal"
                 >
-                    Puoi farlo <strong>una volta sola.</strong>
-                    <br />
-                    Perché scegliere davvero significa non tornare indietro.
+                    Perché scegliere davvero <br />
+                    significa non tornare indietro.
                 </p>
             </div>
 
@@ -177,21 +158,12 @@ export default function LastSection() {
                 </Link>
             </div>
 
-            <div className="mt-[20vw] lg:mt-[8vw]">
+            <div className="mt-[20vw] lg:mt-[2vw]">
                 <p
                     ref={paragraph2Ref}
                     className="text-[#878787] mb-[3vw] lg:mb-[1.5vw] text-[3.5vw] lg:text-[1vw] leading-[5vw] lg:leading-normal"
                 >
                     10 domande • 3 min • 1 parola
-                </p>
-
-                <p
-                    ref={paragraph3Ref}
-                    className="text-[#878787] text-[3.5vw] lg:text-[1vw] leading-[5vw] lg:leading-normal"
-                >
-                    *Questo manifesto continuerà ad esistere <br />
-                    ma le parole non verranno più stampate a <br />
-                    partire dal 20/1/26
                 </p>
             </div>
         </div>

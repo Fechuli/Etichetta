@@ -108,7 +108,7 @@ export default function Percorso() {
     }, []);
 
     return (
-        <div ref={containerRef} className="sm:inline hidden relative h-[400vh]">
+        <div ref={containerRef} className="relative h-[400vh]">
             <div
                 ref={contentRef}
                 className="h-screen flex items-center justify-center p-[5vw] lg:p-[2vw]"

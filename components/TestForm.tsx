@@ -1,114 +1,12 @@
 "use client";
 
-import { ArrowRight, X } from "lucide-react";
+import { ArrowRight, X, Download } from "lucide-react";
 import React, { useState, useRef, useEffect } from "react";
 import { words } from "@/constants";
-import Image from "next/image";
-import Link from "next/link";
 import { jsPDF } from "jspdf";
 import { loadInterFonts } from "@/lib/fonts";
-
-interface Question {
-    id: number;
-    question: string;
-    answers: string[];
-}
-
-const questions: Question[] = [
-    {
-        id: 1,
-        question: "Quando devi iniziare qualcosa di importante, come ti prepari?",
-        answers: [
-            "Pianifico tutto con precisione chirurgica.",
-            "Metto una playlist e ci butto dentro l’ansia.",
-            "Inizio. Poi capisco se era importante.",
-        ],
-    },
-    {
-        id: 2,
-        question:
-            "Ti capita spesso di cambiare idea all’ultimo?",
-        answers: [
-            "No, mai.",
-            "Sempre, e con un certo stile.",
-            "Sì, ma solo su decisioni tipo: “Esisto davvero?”",
-        ],
-    },
-    {
-        id: 3,
-        question: "Come reagisci quando non capisci qualcosa?",
-        answers: [
-            "Lo dico subito, voglio capire.",
-            "Fingo di sapere tutto, poi googlo.",
-            "Lo ignoro finché smette di esistere.",
-        ],
-    },
-    {
-        id: 4,
-        question: "Hai mai sentito di non essere dove dovresti?",
-        answers: [
-            "Sì, almeno una volta a settimana.",
-            "Solo nei sogni (o nelle call).",
-            "Sempre. Infatti ora sto traslocando dentro me stesso.",
-        ],
-    },
-    {
-        id: 5,
-        question: "Quando pensi al futuro, ti viene in mente…",
-        answers: [
-            "Un file Excel ordinato.",
-            "Un campo aperto con mille possibilità.",
-            "Un criceto in tuta da astronauta.",
-        ],
-    },
-    {
-        id: 6,
-        question: "Hai mai dato un nome a un oggetto in casa tua?",
-        answers: [
-            "Sì, e lo chiamo quando mi sento solo.",
-            "Solo a quello che vibra.",
-            "No, ma lui ha dato un nome a me.",
-        ],
-    },
-    {
-        id: 7,
-        question:
-            "Ti è mai sembrato che una stampante ti stesse giudicando?",
-        answers: [
-            "Sì, quando non le ho cambiato il toner.",
-            "No, sono io che giudico lei.",
-            "Solo quando finge di essere offline.",
-        ],
-    },
-    {
-        id: 8,
-        question: "Qual è la tua teoria più strana sull’universo?",
-        answers: [
-            "Siamo tutti sogni riciclati di qualcun altro.",
-            "Le scale mobili decidono se salire o scendere.",
-            "Ogni volta che sbadiglio, si resetta un piccione.",
-        ],
-    },
-    {
-        id: 9,
-        question: "Hai 5 minuti per uscire da casa. Cosa prendi?",
-        answers: [
-            "Cellulare, chiavi, dignità.",
-            "Una banana e il certificato di nascita.",
-            "La scrivania. Tanto poi mi serve.",
-        ],
-    },
-    {
-        id: 10,
-        question:
-            "Un giorno, una giraffa ti consegna un biglietto con scritto il tuo vero nome. Cosa fai?",
-        answers: [
-            "Lo leggo e lo accetto.",
-            "Lo mangio, non si sa mai.",
-            "Lo brucio. Ma lo sento lo stesso, dentro.",
-        ],
-    },
-];
+import { questions } from "@/lib/question";
+import WordFrame from "./WordFrame";
 
 export default function TestForm() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -605,24 +503,15 @@ export default function TestForm() {
                         Questo sei tu ora:
                     </h2>
 
-                    <div className="relative my-[2vw] lg:my-0">
+                    <WordFrame className="my-[4vw] lg:my-[2vw] mb-[8vw] lg:mb-[4vw]">
                         <h1
                             ref={wordRef}
-                            className="text-[12vw] lg:text-[5vw] -tracking-[0.5vw] lg:-tracking-[0.2vw] font-bold text-white leading-none mb-[5vw]"
+                            className="text-[12vw] lg:text-[5vw] -tracking-[0.5vw] lg:-tracking-[0.2vw] font-bold text-white leading-none"
                             style={{ opacity: isAnimating ? 0 : undefined }}
                         >
                             {selectedWord}
                         </h1>
-                        <div className="absolute left-[50%] -translate-x-[50%] top-[18%] ">
-                            <Image
-                                src={"/images/etichetta_final.svg"}
-                                alt="Hero Image"
-                                width={700}
-                                height={500}
-                                className="scale-[3.5]"
-                            />
-                        </div>
-                    </div>
+                    </WordFrame>
                     <p
                         ref={paragraphRef}
                         className="text-[#878787] text-[3.5vw] lg:text-[1vw] leading-[5vw] lg:leading-normal mb-8 text-center max-w-2xl"
@@ -638,23 +527,25 @@ export default function TestForm() {
                         style={{ opacity: isAnimating ? 0 : undefined }}
                     >
                         <button
-                            onClick={handleDownloadPDF}
-                            className="rounded-full py-[0.5vw] px-[2vw] transition-colors cursor-pointer border border-white hover:bg-[#0c0c0c] bg-white text-[#0c0c0c] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                            onClick={handleDownloadWallpaper}
+                            className="rounded-full py-[2vw] lg:py-[0.7vw] px-[4vw] lg:px-[2vw] transition-colors cursor-pointer border border-white hover:bg-[#0c0c0c] bg-white text-[#0c0c0c] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                         >
-                            Scarica attestato
+                            <Download className="w-4 h-4" />
+                            Scarica come sfondo
                         </button>
                         <button
-                            onClick={handleDownloadWallpaper}
-                            className="rounded-full py-[0.5vw] px-[2vw] transition-colors cursor-pointer border border-white hover:bg-[#0c0c0c] bg-transparent text-white hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                            onClick={handleDownloadPDF}
+                            className="rounded-full py-[2vw] lg:py-[0.7vw] px-[4vw] lg:px-[2vw] transition-colors cursor-pointer border border-white hover:bg-white bg-transparent text-white hover:text-[#0c0c0c] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                         >
-                            Scarica wallpaper
+                            <Download className="w-4 h-4" />
+                            Ottieni attestato
                         </button>
-                        <Link
+                        {/* <Link
                             className="text-white hover:underline text-center cursor-pointer"
                             href="/contatti"
                         >
                             Richiedilo in forma fisica
-                        </Link>
+                        </Link> */}
                     </div>
                 </div>
             </>
@@ -726,11 +617,13 @@ export default function TestForm() {
                                 : "border-[#878787] hover:border-[#0c0c0c]"
                         }`}
                     >
-                        <button className={`transition-all ${
-                            answers[currentQuestion.id]
-                                ? "text-white"
-                                : "text-[#878787] hover:text-[#0c0c0c]"
-                        }`}>
+                        <button
+                            className={`transition-all ${
+                                answers[currentQuestion.id]
+                                    ? "text-white"
+                                    : "text-[#878787] hover:text-[#0c0c0c]"
+                            }`}
+                        >
                             <ArrowRight className="w-[5vw] lg:w-[1vw] cursor-pointer" />
                         </button>
                     </div>

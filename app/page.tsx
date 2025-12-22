@@ -12,7 +12,9 @@ export default function Home() {
             <div className="h-[5vw]" />
             <SecondSection />
             <div className="h-[25vw]" />
-            <Percorso />
+            <div className="sm:inline hidden">
+                <Percorso />
+            </div>
             <ParallaxSection />
             <ChangeWordSection />
             <LastSection />
